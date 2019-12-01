@@ -1,11 +1,6 @@
 <resources>
-    <string name="app_name">Projet IF26</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
+    <string name="app_name">MonArgent</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="title_transaction_list">Liste des transactions</string>
+    <string name="title_transaction_detail">Détails de la transaction</string>
 </resources>
