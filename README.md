@@ -12,4 +12,4 @@ la commande suivante (à entrer à la racine du répertoire du projet) :
 
 ```text
 ./gradlew goJF
-```  
+```
