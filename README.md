@@ -1,4 +1,7 @@
-# Projet IF26
+# MonArgent
+
+Application de gestion de finances personnelles développée dans le cadre de l'UE
+IF26. Cette application nécesssite Android 7.0 ou plus récent (API 24).
 
 ## Développement
 
