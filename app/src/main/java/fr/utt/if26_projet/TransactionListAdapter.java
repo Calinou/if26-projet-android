@@ -1,8 +1,6 @@
 package fr.utt.if26_projet;
 
 import android.content.Context;
-import android.icu.text.DecimalFormat;
-import android.icu.text.DecimalFormatSymbols;
 import android.os.Build.VERSION_CODES;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,8 +56,6 @@ public class TransactionListAdapter
   public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View itemView = inflater.inflate(R.layout.transaction_item, parent, false);
 
-    System.out.println("Creating TransactionListAdapter.");
-
     return new TransactionViewHolder(itemView);
   }
 
@@ -69,13 +65,8 @@ public class TransactionListAdapter
     if (transactions != null) {
       final Transaction current = transactions.get(position);
 
-      final DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
-      decimalFormatSymbols.setDecimalSeparator(',');
-      decimalFormatSymbols.setGroupingSeparator(' ');
-      DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
-
-      holder.amountTextView.setText(
-          String.format("%s €", decimalFormat.format(current.getAmount() / 100.0)));
+      holder.amountTextView.setText(current.getAmountString());
+      holder.amountTextView.setTextColor(current.getAmountColor());
 
       // String.valueOf() is used as we should set the value to a string, not an integer.
       // Otherwise, Android will interpret the integer as a resource ID (and will crash as it

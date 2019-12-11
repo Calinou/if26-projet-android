@@ -1,6 +1,10 @@
 package fr.utt.if26_projet;
 
+import android.icu.text.DecimalFormat;
+import android.icu.text.DecimalFormatSymbols;
+import android.os.Build.VERSION_CODES;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.io.Serializable;
@@ -60,7 +64,7 @@ public class Transaction implements Serializable {
     this.id = id;
   }
 
-  public int getAmount() {
+  int getAmount() {
     return amount;
   }
 
@@ -68,7 +72,7 @@ public class Transaction implements Serializable {
     this.amount = amount;
   }
 
-  public int getDate() {
+  int getDate() {
     return date;
   }
 
@@ -76,7 +80,7 @@ public class Transaction implements Serializable {
     this.date = date;
   }
 
-  public int getAccount() {
+  int getAccount() {
     return account;
   }
 
@@ -84,7 +88,7 @@ public class Transaction implements Serializable {
     this.account = account;
   }
 
-  public int getCategory() {
+  int getCategory() {
     return category;
   }
 
@@ -93,7 +97,7 @@ public class Transaction implements Serializable {
   }
 
   @NonNull
-  public String getContents() {
+  String getContents() {
     return contents;
   }
 
@@ -101,7 +105,7 @@ public class Transaction implements Serializable {
     this.contents = contents;
   }
 
-  public String getNotes() {
+  String getNotes() {
     return notes;
   }
 
@@ -109,11 +113,32 @@ public class Transaction implements Serializable {
     this.notes = notes;
   }
 
-  public boolean isTransfer() {
+  boolean isTransfer() {
     return transfer;
   }
 
   public void setTransfer(boolean transfer) {
     this.transfer = transfer;
+  }
+
+  /** Returns the amount as a formatted currency string (with French localization). */
+  @RequiresApi(api = VERSION_CODES.N)
+  String getAmountString() {
+    final DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+    decimalFormatSymbols.setDecimalSeparator(',');
+    decimalFormatSymbols.setGroupingSeparator(' ');
+    DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
+
+    // Add a "+" prefix for positive amounts to make income more explicit
+    return String.format("%s%s €", (!transfer && amount > 0) ? "+" : "", decimalFormat.format(amount / 100.0));
+  }
+
+  /** Returns the color the amount should be displayed with (as an hexadecimal code). */
+  int getAmountColor() {
+    return transfer || amount == 0
+        ? 0xff808080 // Transfer/neutral
+        : amount > 0
+            ? 0xff3388ff // Income
+            : 0xffff4433; // Expense
   }
 }
