@@ -58,7 +58,7 @@ abstract class Database extends RoomDatabase {
       transactionDao.insert(
           new Transaction(0, -550, 1500000000, 0, 0, "Cafés", "Quelques notes...", false));
       transactionDao.insert(
-          new Transaction(0, 652, 1500000000, 0, 0, "PayPal", "Quelques notes...", false));
+          new Transaction(0, 652, 1500000000, 0, 0, "PayPal", "Quelques notes...", true));
 
       return null;
     }
