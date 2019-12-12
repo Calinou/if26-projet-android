@@ -73,7 +73,8 @@ public class TransactionDetailFragment extends Fragment {
     final View rootView = inflater.inflate(R.layout.transaction_detail, container, false);
 
     if (transaction != null) {
-      ((TextView) rootView.findViewById(R.id.transaction_detail)).setText(transaction.getNotes());
+      ((TextView) rootView.findViewById(R.id.transaction_detail_notes))
+          .setText(transaction.getNotes());
     }
 
     return rootView;

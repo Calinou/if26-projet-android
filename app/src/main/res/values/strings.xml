@@ -8,9 +8,15 @@
     <string name="transaction_kind_expense">Dépense</string>
     <string name="transaction_kind_transfer">Transfert</string>
     <string name="transaction_submit">Ajouter</string>
-    <string name="transaction_date">Date (requis, jj/mm/aaaa)</string>
-    <string name="transaction_amount">Montant (requis)</string>
+    <string name="transaction_date">Date</string>
+    <string name="transaction_amount">Montant</string>
     <string name="transaction_notes">Notes</string>
-    <string name="transaction_contents">Objet (requis)</string>
+    <string name="transaction_contents">Objet</string>
     <string name="transaction_added">Transaction ajoutée !</string>
+  <string name="transaction_kind">Type</string>
+  <string name="transaction_category">Catégorie</string>
+    <string name="transaction_account">Compte</string>
+    <string name="transaction_date_hint">Date (requis, jj/mm/aaaa)</string>
+    <string name="transaction_amount_hint">Montant (requis)</string>
+    <string name="transaction_contents_hint">Objet (requis)</string>
 </resources>
