@@ -1,30 +1,37 @@
 package fr.utt.if26_projet;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.os.Build.VERSION_CODES;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.Date;
 import java.util.List;
 
 public class TransactionListAdapter
     extends RecyclerView.Adapter<TransactionListAdapter.TransactionViewHolder> {
 
   class TransactionViewHolder extends RecyclerView.ViewHolder {
+    private final LinearLayout transactionItemView;
     private final TextView amountTextView;
     private final TextView dateTextView;
+    private final TextView categoryTextView;
     private final TextView contentsTextView;
     private final TextView accountTextView;
 
     private TransactionViewHolder(View itemView) {
       super(itemView);
 
+      transactionItemView = itemView.findViewById(R.id.transaction_item);
       amountTextView = itemView.findViewById(R.id.transaction_item_amount);
       dateTextView = itemView.findViewById(R.id.transaction_item_date);
+      categoryTextView = itemView.findViewById(R.id.transaction_item_category);
       contentsTextView = itemView.findViewById(R.id.transaction_item_contents);
       accountTextView = itemView.findViewById(R.id.transaction_item_account);
     }
@@ -65,19 +72,29 @@ public class TransactionListAdapter
     if (transactions != null) {
       final Transaction current = transactions.get(position);
 
+      // Alternate row background colors for better readability
+      if (position % 2 == 0) {
+        holder.transactionItemView.setBackgroundColor(0x10808080);
+      } else {
+        // This must be done to reset the background color properly.
+        // Otherwise, the color may not alternate correctly.
+        holder.transactionItemView.setBackgroundColor(0x00000000);
+      }
+
       holder.amountTextView.setText(current.getAmountString());
       holder.amountTextView.setTextColor(current.getAmountColor());
 
-      // String.valueOf() is used as we should set the value to a string, not an integer.
-      // Otherwise, Android will interpret the integer as a resource ID (and will crash as it
-      // doesn't exist).
-      holder.dateTextView.setText(String.valueOf(current.getDate()));
+      final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+      holder.dateTextView.setText(dateFormat.format(new Date(current.getDate() * 1000L)));
+
+      holder.categoryTextView.setText(String.valueOf(current.getCategory()));
       holder.contentsTextView.setText(current.getContents());
       holder.accountTextView.setText(String.valueOf(current.getAccount()));
     } else {
       // Data isn't ready yet
       holder.amountTextView.setText("...");
       holder.dateTextView.setText("...");
+      holder.categoryTextView.setText("...");
       holder.contentsTextView.setText("...");
       holder.accountTextView.setText("...");
     }

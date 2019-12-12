@@ -130,7 +130,8 @@ public class Transaction implements Serializable {
     DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
 
     // Add a "+" prefix for positive amounts to make income more explicit
-    return String.format("%s%s €", (!transfer && amount > 0) ? "+" : "", decimalFormat.format(amount / 100.0));
+    return String.format(
+        "%s%s €", (!transfer && amount > 0) ? "+" : "", decimalFormat.format(amount / 100.0));
   }
 
   /** Returns the color the amount should be displayed with (as an hexadecimal code). */
