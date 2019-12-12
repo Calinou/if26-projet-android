@@ -1,5 +1,6 @@
 package fr.utt.if26_projet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.Nullable;
@@ -10,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 /**
@@ -26,6 +26,7 @@ public class TransactionListActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_transaction_list);
+    setTitle(R.string.title_transaction_list);
 
     final Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -36,9 +37,9 @@ public class TransactionListActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show();
+            final Intent intent =
+                new Intent(TransactionListActivity.this, TransactionCreateActivity.class);
+            startActivity(intent);
           }
         });
 

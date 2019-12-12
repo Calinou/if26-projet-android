@@ -3,15 +3,12 @@ package fr.utt.if26_projet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 /**
@@ -32,17 +29,6 @@ public class TransactionDetailActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
 
     System.out.println("Loading TransactionDetailActivity");
-
-    final FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show();
-          }
-        });
 
     // Show the Up button in the action bar.
     final ActionBar actionBar = getSupportActionBar();

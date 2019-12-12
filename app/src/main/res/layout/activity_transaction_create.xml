@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".TransactionCreateActivity">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp">
+    <RadioGroup
+      android:id="@+id/transaction_create_kind"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <RadioButton
+        android:id="@+id/transaction_create_kind_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:paddingEnd="40dp"
+        android:text="@string/transaction_kind_income" />
+      <RadioButton
+        android:id="@+id/transaction_create_kind_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="40dp"
+        android:text="@string/transaction_kind_expense" />
+      <RadioButton
+        android:id="@+id/transaction_create_kind_transfer"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:paddingEnd="40dp"
+        android:text="@string/transaction_kind_transfer" />
+    </RadioGroup>
+    <EditText
+      android:id="@+id/transaction_create_date"
+      android:layout_width="226dp"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/transaction_date"
+      android:inputType="date" />
+    <EditText
+      android:id="@+id/transaction_create_amount"
+      android:layout_width="154dp"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/transaction_amount"
+      android:inputType="numberDecimal" />
+    <EditText
+      android:id="@+id/transaction_create_contents"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/transaction_contents"
+      android:inputType="textPersonName" />
+    <EditText
+      android:id="@+id/transaction_create_notes"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:gravity="start|top"
+      android:hint="@string/transaction_notes"
+      android:inputType="textMultiLine" />
+    <Button
+      android:id="@+id/transaction_create_submit"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:text="@string/transaction_submit" />
+    <TextView
+      android:id="@+id/transaction_create_result"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:textAlignment="center"
+      android:textColor="#43A047" />
+  </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

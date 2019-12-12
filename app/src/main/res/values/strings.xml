@@ -3,4 +3,14 @@
     <string name="action_settings">Paramètres</string>
     <string name="title_transaction_list">Liste des transactions</string>
     <string name="title_transaction_detail">Détails de la transaction</string>
+    <string name="title_transaction_create">Nouvelle transaction</string>
+    <string name="transaction_kind_income">Recette</string>
+    <string name="transaction_kind_expense">Dépense</string>
+    <string name="transaction_kind_transfer">Transfert</string>
+    <string name="transaction_submit">Ajouter</string>
+    <string name="transaction_date">Date (requis, jj/mm/aaaa)</string>
+    <string name="transaction_amount">Montant (requis)</string>
+    <string name="transaction_notes">Notes</string>
+    <string name="transaction_contents">Objet (requis)</string>
+    <string name="transaction_added">Transaction ajoutée !</string>
 </resources>

@@ -37,6 +37,13 @@ public class Transaction implements Serializable {
   /** If `true`, the transaction is a transfer from an account to another. */
   private boolean transfer;
 
+  /** The type of the transaction. */
+  enum Kind {
+    INCOME,
+    EXPENSE,
+    TRANSFER,
+  }
+
   enum Account {
     CASH(0, "Espèces"),
     CARD(1, "Carte bancaire");
