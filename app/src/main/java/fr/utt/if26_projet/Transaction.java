@@ -23,10 +23,10 @@ public class Transaction implements Serializable {
   private int date;
 
   /** The account the transaction was made with. */
-  private int account;
+  private Account account;
 
   /** The category the transaction belongs to. */
-  private int category;
+  private Category category;
 
   /** An one-line description of the transaction (shown on the list of transactions). */
   @NonNull private String contents;
@@ -37,12 +37,55 @@ public class Transaction implements Serializable {
   /** If `true`, the transaction is a transfer from an account to another. */
   private boolean transfer;
 
+  enum Account {
+    CASH(0, "Espèces"),
+    CARD(1, "Carte bancaire");
+
+    private final int id;
+    private final String value;
+
+    Account(int id, String value) {
+      this.id = id;
+      this.value = value;
+    }
+
+    public int getId() {
+      return id;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+
+  enum Category {
+    FOOD(0, "Nourriture"),
+    LEISURE(1, "Loisirs"),
+    OTHER(2, "Autres");
+
+    private final int id;
+    private final String value;
+
+    Category(int id, String value) {
+      this.id = id;
+      this.value = value;
+    }
+
+    public int getId() {
+      return id;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+
   public Transaction(
       int id,
       int amount,
       int date,
-      int account,
-      int category,
+      Account account,
+      Category category,
       @NonNull String contents,
       String notes,
       boolean transfer) {
@@ -80,19 +123,19 @@ public class Transaction implements Serializable {
     this.date = date;
   }
 
-  int getAccount() {
+  Account getAccount() {
     return account;
   }
 
-  public void setAccount(int account) {
+  public void setAccount(Account account) {
     this.account = account;
   }
 
-  int getCategory() {
+  Category getCategory() {
     return category;
   }
 
-  public void setCategory(int category) {
+  public void setCategory(Category category) {
     this.category = category;
   }
 

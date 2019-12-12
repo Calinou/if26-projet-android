@@ -87,9 +87,9 @@ public class TransactionListAdapter
       final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
       holder.dateTextView.setText(dateFormat.format(new Date(current.getDate() * 1000L)));
 
-      holder.categoryTextView.setText(String.valueOf(current.getCategory()));
+      holder.categoryTextView.setText(current.getCategory().getValue());
       holder.contentsTextView.setText(current.getContents());
-      holder.accountTextView.setText(String.valueOf(current.getAccount()));
+      holder.accountTextView.setText(current.getAccount().getValue());
     } else {
       // Data isn't ready yet
       holder.amountTextView.setText("...");
