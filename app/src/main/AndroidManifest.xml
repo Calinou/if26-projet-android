@@ -9,7 +9,10 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".TransactionCreateActivity"></activity>
+    <activity android:name=".SettingsAboutActivity"></activity>
+    <activity android:name=".SettingsDiscreetModeActivity" />
+    <activity android:name=".SettingsActivity" />
+    <activity android:name=".TransactionCreateActivity" />
     <activity
       android:name=".TransactionDetailActivity"
       android:label="@string/title_transaction_detail"

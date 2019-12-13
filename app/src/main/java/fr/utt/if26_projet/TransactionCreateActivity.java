@@ -3,10 +3,12 @@ package fr.utt.if26_projet;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,6 +31,10 @@ public class TransactionCreateActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_transaction_create);
     setTitle(R.string.title_transaction_create);
+
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
     transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
@@ -83,5 +89,15 @@ public class TransactionCreateActivity extends AppCompatActivity {
             }
           }
         });
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      finish();
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 }

@@ -2,7 +2,10 @@ package fr.utt.if26_projet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,8 +40,7 @@ public class TransactionListActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            final Intent intent =
-                new Intent(view.getContext(), TransactionCreateActivity.class);
+            final Intent intent = new Intent(view.getContext(), TransactionCreateActivity.class);
             startActivity(intent);
           }
         });
@@ -64,82 +66,20 @@ public class TransactionListActivity extends AppCompatActivity {
             });
   }
 
-  /*
-  private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-    recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, TransactionItem.ITEMS));
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main, menu);
+
+    return true;
   }
 
-  public static class SimpleItemRecyclerViewAdapter
-      extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-    private final List<TransactionItem.TransactionItem> mValues;
-    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        TransactionItem.TransactionItem item = (TransactionItem.TransactionItem) view.getTag();
-        Context context = view.getContext();
-        Intent intent = new Intent(context, TransactionDetailActivity.class);
-        intent.putExtra(TransactionDetailFragment.ARG_ITEM_ID, item.id);
-
-        context.startActivity(intent);
-      }
-    };
-
-    SimpleItemRecyclerViewAdapter(TransactionListActivity parent,
-        List<TransactionItem.TransactionItem> items) {
-      mValues = items;
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    if (item.getItemId() == R.id.action_settings) {
+      final Intent intent = new Intent(this, SettingsActivity.class);
+      startActivity(intent);
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      View view = LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.transaction_list_content, parent, false);
-      return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-      holder.mIdView.setText(mValues.get(position).id);
-      holder.mContentView.setText(mValues.get(position).content);
-
-      holder.itemView.setTag(mValues.get(position));
-      holder.itemView.setOnClickListener(mOnClickListener);
-    }
-
-    @Override
-    public int getItemCount() {
-      return mValues.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-      final TextView mIdView;
-      final TextView mContentView;
-
-      ViewHolder(View view) {
-        super(view);
-        mIdView = (TextView) view.findViewById(R.id.id_text);
-        mContentView = (TextView) view.findViewById(R.id.content);
-      }
-    }*/
-
-  /*
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      super.onActivityResult(requestCode, resultCode, data);
-
-      if (requestCode == ListTransactionsActivity.NEW_TRANSACTION_ACTIVITY_REQUEST && resultCode == RESULT_OK) {
-        transactionListViewModel.insert(
-            new Transaction(
-                0,
-                data.getIntExtra("amount", 0),
-                data.getIntExtra("date", 0),
-                data.getIntExtra("account", 0),
-                data.getIntExtra("category", 0),
-                Objects.requireNonNull(data.getStringExtra("contents")),
-                data.getStringExtra("notes"),
-                data.getBooleanExtra("isTransfer", false)));
-      }
-    }
+    return super.onOptionsItemSelected(item);
   }
-  */
 }
