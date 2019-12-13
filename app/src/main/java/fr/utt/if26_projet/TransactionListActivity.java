@@ -38,7 +38,7 @@ public class TransactionListActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             final Intent intent =
-                new Intent(TransactionListActivity.this, TransactionCreateActivity.class);
+                new Intent(view.getContext(), TransactionCreateActivity.class);
             startActivity(intent);
           }
         });
