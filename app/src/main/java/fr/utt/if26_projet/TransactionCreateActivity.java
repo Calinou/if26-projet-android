@@ -23,7 +23,6 @@ public class TransactionCreateActivity extends AppCompatActivity {
   private TextView amountTextView;
   private TextView contentsTextView;
   private TextView notesTextView;
-  private Button submitButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class TransactionCreateActivity extends AppCompatActivity {
     contentsTextView = findViewById(R.id.transaction_create_contents);
     notesTextView = findViewById(R.id.transaction_create_notes);
 
-    submitButton = findViewById(R.id.transaction_create_submit);
+    final Button submitButton = findViewById(R.id.transaction_create_submit);
     submitButton.setOnClickListener(
         new View.OnClickListener() {
           @RequiresApi(api = VERSION_CODES.N)
