@@ -171,17 +171,25 @@ public class Transaction implements Serializable {
     this.transfer = transfer;
   }
 
-  /** Returns the amount as a formatted currency string (with French localization). */
+  /**
+   * Returns the amount as a formatted currency string (with French localization). If discreet mode
+   * is enabled, returns a string that doesn't disclose the amount.
+   */
   @RequiresApi(api = VERSION_CODES.N)
-  String getAmountString() {
-    final DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
-    decimalFormatSymbols.setDecimalSeparator(',');
-    decimalFormatSymbols.setGroupingSeparator(' ');
-    DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
+  String getAmountString(boolean discreetMode) {
+    if (discreetMode) {
+      // Add a "+" prefix for positive amounts to make income more explicit.
+      // We also need to add the "-" prefix manually as we don't display the number here.
+      return String.format("%s##,## €", getAmountSign(true));
+    } else {
+      final DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+      decimalFormatSymbols.setDecimalSeparator(',');
+      decimalFormatSymbols.setGroupingSeparator(' ');
+      DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
 
-    // Add a "+" prefix for positive amounts to make income more explicit
-    return String.format(
-        "%s%s €", (!transfer && amount > 0) ? "+" : "", decimalFormat.format(amount / 100.0));
+      // Add a "+" prefix for positive amounts to make income more explicit
+      return String.format("%s%s €", getAmountSign(false), decimalFormat.format(amount / 100.0));
+    }
   }
 
   /** Returns the color the amount should be displayed with (as an hexadecimal code). */
@@ -191,5 +199,16 @@ public class Transaction implements Serializable {
         : amount > 0
             ? 0xff3388ff // Income
             : 0xffff4433; // Expense
+  }
+
+  /** Returns the sign corresponding to the transaction amount. */
+  private String getAmountSign(boolean alsoNegative) {
+    if (transfer || amount == 0 || (amount < 0 && !alsoNegative)) {
+      return "";
+    } else if (amount > 0) {
+      return "+";
+    } else {
+      return "-";
+    }
   }
 }

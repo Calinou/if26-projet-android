@@ -42,6 +42,9 @@ public class TransactionListAdapter
   /** The cached copy of the transactions. */
   private List<Transaction> transactions;
 
+  /** If `true`, discreet mode is enabled. */
+  private boolean discreetMode = false;
+
   //  private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
   //    @Override
   //    public void onClick(View view) {
@@ -81,7 +84,7 @@ public class TransactionListAdapter
         holder.transactionItemView.setBackgroundColor(0x00000000);
       }
 
-      holder.amountTextView.setText(current.getAmountString());
+      holder.amountTextView.setText(current.getAmountString(discreetMode));
       holder.amountTextView.setTextColor(current.getAmountColor());
 
       final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
@@ -112,5 +115,9 @@ public class TransactionListAdapter
     }
 
     return 0;
+  }
+
+  void setDiscreetMode(boolean discreetMode) {
+    this.discreetMode = discreetMode;
   }
 }

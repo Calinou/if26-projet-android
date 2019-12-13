@@ -1,6 +1,8 @@
 package fr.utt.if26_projet;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class TransactionListActivity extends AppCompatActivity {
 
-  private TransactionViewModel transactionViewModel;
+  private TransactionListAdapter adapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +47,17 @@ public class TransactionListActivity extends AppCompatActivity {
           }
         });
 
+    final SharedPreferences settings = getSharedPreferences("user", Context.MODE_PRIVATE);
+    adapter = new TransactionListAdapter(this);
+    adapter.setDiscreetMode(settings.getBoolean("discreet_mode", false));
+
     final RecyclerView recyclerView = findViewById(R.id.transaction_list);
-    final TransactionListAdapter adapter = new TransactionListAdapter(this);
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     System.out.println("Loading TransactionListActivity");
 
-    transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+    final TransactionViewModel transactionViewModel =
+        new ViewModelProvider(this).get(TransactionViewModel.class);
     transactionViewModel
         .getAll()
         .observe(
@@ -64,6 +70,13 @@ public class TransactionListActivity extends AppCompatActivity {
                 adapter.setTransactions(transactions);
               }
             });
+  }
+
+  @Override
+  protected void onRestart() {
+    super.onRestart();
+    // Recreate the activity to take a possible discreet mode change into account
+    recreate();
   }
 
   @Override
