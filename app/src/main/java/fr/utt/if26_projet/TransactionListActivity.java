@@ -18,11 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
-/**
- * An activity representing a list of Transactions. This activity has different presentations for
- * handset and tablet-size devices. On handsets, the activity presents a list of items, which when
- * touched, lead to a {@link TransactionDetailActivity} representing item details.
- */
+/** An activity representing a list of Transactions. */
 public class TransactionListActivity extends AppCompatActivity {
 
   private TransactionListAdapter adapter;

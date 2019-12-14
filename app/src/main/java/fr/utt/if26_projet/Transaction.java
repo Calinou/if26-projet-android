@@ -171,6 +171,13 @@ public class Transaction implements Serializable {
     this.transfer = transfer;
   }
 
+  /** Returns the transaction type as an human-readable string resource ID. */
+  int getKindStringResource() {
+    return transfer || amount == 0
+        ? R.string.transaction_kind_transfer
+        : amount > 0 ? R.string.transaction_kind_income : R.string.transaction_kind_expense;
+  }
+
   /**
    * Returns the amount as a formatted currency string (with French localization). If discreet mode
    * is enabled, returns a string that doesn't disclose the amount.

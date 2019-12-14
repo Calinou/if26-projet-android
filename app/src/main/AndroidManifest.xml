@@ -16,8 +16,7 @@
     <activity
       android:name=".TransactionDetailActivity"
       android:label="@string/title_transaction_detail"
-      android:parentActivityName=".TransactionListActivity"
-      android:theme="@style/AppTheme.NoActionBar">
+      android:parentActivityName=".TransactionListActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value="fr.utt.if26_projet.TransactionListActivity" />

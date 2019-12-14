@@ -1,6 +1,7 @@
 package fr.utt.if26_projet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build.VERSION_CODES;
 import android.view.LayoutInflater;
@@ -45,18 +46,6 @@ public class TransactionListAdapter
   /** If `true`, discreet mode is enabled. */
   private boolean discreetMode = false;
 
-  //  private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-  //    @Override
-  //    public void onClick(View view) {
-  //      Transaction transaction = (TransactionItem.TransactionItem) view.getTag();
-  //      Context context = view.getContext();
-  //      Intent intent = new Intent(context, TransactionDetailActivity.class);
-  //      intent.putExtra(TransactionDetailFragment.ARG_ITEM_ID, transaction.getId());
-  //
-  //      context.startActivity(intent);
-  //    }
-  //  };
-
   TransactionListAdapter(Context context) {
     inflater = LayoutInflater.from(context);
   }
@@ -74,6 +63,17 @@ public class TransactionListAdapter
   public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
     if (transactions != null) {
       final Transaction current = transactions.get(position);
+
+      holder.transactionItemView.setOnClickListener(
+          new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              final Context context = view.getContext();
+              final Intent intent = new Intent(context, TransactionDetailActivity.class);
+              intent.putExtra(TransactionDetailActivity.ARG_ITEM_ID, current.getId());
+              context.startActivity(intent);
+            }
+          });
 
       // Alternate row background colors for better readability
       if (position % 2 == 0) {

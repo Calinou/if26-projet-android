@@ -1,92 +1,107 @@
 package fr.utt.if26_projet;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import java.util.List;
+import java.util.Date;
 
-/**
- * An activity representing a single Transaction detail screen. This activity is only used on narrow
- * width devices. On tablet-size devices, item details are presented side-by-side with a list of
- * items in a {@link TransactionListActivity}.
- */
+/** An activity representing a single Transaction detail screen. */
 public class TransactionDetailActivity extends AppCompatActivity {
 
-  private TransactionViewModel transactionViewModel;
+  /** The intent argument used to specify the transaction ID. */
+  static final String ARG_ITEM_ID = "item_id";
+
+  /** The transaction to display. */
+  private Transaction transaction;
+
+  private TextView kindTextView;
+  private TextView amountTextView;
+  private TextView dateTextView;
+  private TextView accountTextView;
+  private TextView categoryTextView;
+  private TextView contentsTextView;
+  private TextView notesTextView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_transaction_detail);
 
-    final Toolbar toolbar = findViewById(R.id.detail_toolbar);
-    setSupportActionBar(toolbar);
-
-    System.out.println("Loading TransactionDetailActivity");
-
-    // Show the Up button in the action bar.
-    final ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(true);
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    // savedInstanceState is non-null when there is fragment state
-    // saved from previous configurations of this activity
-    // (e.g. when rotating the screen from portrait to landscape).
-    // In this case, the fragment will automatically be re-added
-    // to its container so we don't need to manually add it.
-    // For more information, see the Fragments API guide at:
-    //
-    // http://developer.android.com/guide/components/fragments.html
-    //
-    if (savedInstanceState == null) {
-      transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
-      transactionViewModel
-          .getAll()
-          .observe(
-              this,
-              new Observer<List<Transaction>>() {
-                @Override
-                public void onChanged(@Nullable final List<Transaction> transactions) {
-                  System.out.println("Transactions updated.");
-                }
-              });
+    kindTextView = findViewById(R.id.transaction_detail_kind);
+    amountTextView = findViewById(R.id.transaction_detail_amount);
+    dateTextView = findViewById(R.id.transaction_detail_date);
+    accountTextView = findViewById(R.id.transaction_detail_account);
+    categoryTextView = findViewById(R.id.transaction_detail_category);
+    contentsTextView = findViewById(R.id.transaction_detail_contents);
+    notesTextView = findViewById(R.id.transaction_detail_notes);
 
-      // Create the detail fragment and add it to the activity
-      // using a fragment transaction.
-      final Bundle arguments = new Bundle();
-      arguments.putString(
-          TransactionDetailFragment.ARG_ITEM_ID,
-          getIntent().getStringExtra(TransactionDetailFragment.ARG_ITEM_ID));
-      final TransactionDetailFragment fragment = new TransactionDetailFragment();
-      fragment.setArguments(arguments);
-      getSupportFragmentManager()
-          .beginTransaction()
-          .add(R.id.transaction_detail_container, fragment)
-          .commit();
-    }
+    final Intent intent = getIntent();
+    final TransactionViewModel transactionViewModel =
+        new ViewModelProvider(this).get(TransactionViewModel.class);
+    transactionViewModel
+        .get(intent.getIntExtra(ARG_ITEM_ID, 0))
+        .observe(
+            this,
+            new Observer<Transaction>() {
+              @RequiresApi(api = VERSION_CODES.N)
+              @Override
+              public void onChanged(@Nullable final Transaction transaction2) {
+                transaction = transaction2;
+                updateTransactionDetails();
+              }
+            });
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
-      // This ID represents the Home or Up button. In the case of this
-      // activity, the Up button is shown. For
-      // more details, see the Navigation pattern on Android Design:
-      //
-      // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-      //
-      navigateUpTo(new Intent(this, TransactionListActivity.class));
-
+      finish();
       return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  /** Update the transaction details displayed in the view. */
+  @RequiresApi(api = VERSION_CODES.N)
+  private void updateTransactionDetails() {
+    setTitle(transaction.getContents());
+
+    kindTextView.setText(getString(transaction.getKindStringResource()));
+
+    final SharedPreferences settings = getSharedPreferences("user", Context.MODE_PRIVATE);
+    amountTextView.setText(
+        transaction.getAmountString(
+            settings.getBoolean(getString(R.string.setting_discreet_mode), false)));
+
+    amountTextView.setTextColor(transaction.getAmountColor());
+
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+    dateTextView.setText(dateFormat.format(new Date(transaction.getDate() * 1000L)));
+
+    accountTextView.setText(transaction.getAccount().getValue());
+    categoryTextView.setText(transaction.getCategory().getValue());
+    contentsTextView.setText(transaction.getContents());
+
+    if (!transaction.getNotes().isEmpty()) {
+      notesTextView.setText(transaction.getNotes());
+    } else {
+      notesTextView.setText(R.string.transaction_no_notes);
+      notesTextView.setTextColor(0x80808080);
+    }
   }
 }
