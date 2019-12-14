@@ -20,7 +20,6 @@ public class SettingsDiscreetModeActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings_discreet_mode);
-    setTitle(R.string.settings_discreet_mode);
 
     if (getSupportActionBar() != null) {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);

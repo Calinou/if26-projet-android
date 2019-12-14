@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="fr.utt.if26_projet">
 
   <application
@@ -8,26 +9,29 @@
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme">
-    <activity android:name=".SettingsAboutActivity"></activity>
-    <activity android:name=".SettingsDiscreetModeActivity" />
-    <activity android:name=".SettingsActivity" />
-    <activity android:name=".TransactionCreateActivity" />
+    android:theme="@style/AppTheme"
+    tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+    <activity
+      android:name=".SettingsAboutActivity"
+      android:label="@string/settings_about" />
+    <activity
+      android:name=".SettingsDiscreetModeActivity"
+      android:label="@string/settings_discreet_mode" />
+    <activity
+      android:name=".SettingsActivity"
+      android:label="@string/action_settings" />
+    <activity
+      android:name=".TransactionCreateActivity"
+      android:label="@string/title_transaction_create" />
     <activity
       android:name=".TransactionDetailActivity"
-      android:label="@string/title_transaction_detail"
-      android:parentActivityName=".TransactionListActivity">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="fr.utt.if26_projet.TransactionListActivity" />
-    </activity>
+      android:label="@string/title_transaction_detail" />
     <activity
       android:name=".TransactionListActivity"
       android:label="@string/app_name"
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>

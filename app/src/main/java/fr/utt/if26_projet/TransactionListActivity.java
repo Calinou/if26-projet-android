@@ -31,6 +31,7 @@ public class TransactionListActivity extends AppCompatActivity {
 
     final Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+    // The title must be set here to leave the launcher app name untouched
     toolbar.setTitle(getTitle());
 
     final FloatingActionButton fab = findViewById(R.id.fab);
