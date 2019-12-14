@@ -93,13 +93,6 @@ public class TransactionListAdapter
       holder.categoryTextView.setText(current.getCategory().getValue());
       holder.contentsTextView.setText(current.getContents());
       holder.accountTextView.setText(current.getAccount().getValue());
-    } else {
-      // Data isn't ready yet
-      holder.amountTextView.setText("...");
-      holder.dateTextView.setText("...");
-      holder.categoryTextView.setText("...");
-      holder.contentsTextView.setText("...");
-      holder.accountTextView.setText("...");
     }
   }
 
