@@ -28,4 +28,8 @@
   <string name="settings_discreet_mode_description_2">Cela vous permet d\'utiliser l\'application en toute sérénité dans des lieux publics, par exemple.</string>
   <string name="setting_discreet_mode" translatable="false">discreet_mode</string>
   <string name="transaction_no_notes">Pas de notes</string>
+  <string name="action_delete">Supprimer</string>
+  <string name="transaction_delete_confirm">Voulez-vous vraiment supprimer cette transaction ?</string>
+  <string name="yes">Oui</string>
+  <string name="no">Non</string>
 </resources>

@@ -1,11 +1,14 @@
 package fr.utt.if26_projet;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -23,6 +26,8 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
   /** The transaction to display. */
   private Transaction transaction;
+
+  private TransactionViewModel transactionViewModel;
 
   private TextView kindTextView;
   private TextView amountTextView;
@@ -50,8 +55,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
     notesTextView = findViewById(R.id.transaction_detail_notes);
 
     final Intent intent = getIntent();
-    final TransactionViewModel transactionViewModel =
-        new ViewModelProvider(this).get(TransactionViewModel.class);
+    transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
     transactionViewModel
         .get(intent.getIntExtra(ARG_ITEM_ID, 0))
         .observe(
@@ -67,10 +71,42 @@ public class TransactionDetailActivity extends AppCompatActivity {
   }
 
   @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.transaction_detail, menu);
+
+    return true;
+  }
+
+  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
       finish();
       return true;
+    } else if (item.getItemId() == R.id.action_delete) {
+      final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setMessage(R.string.transaction_delete_confirm);
+      builder.setCancelable(true);
+
+      builder.setPositiveButton(
+          R.string.yes,
+          new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+              transactionViewModel.delete(transaction);
+              final Intent intent = new Intent(getBaseContext(), TransactionListActivity.class);
+              startActivity(intent);
+            }
+          });
+
+      builder.setNegativeButton(
+          R.string.no,
+          new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+              dialog.cancel();
+            }
+          });
+
+      final AlertDialog alertDialog = builder.create();
+      alertDialog.show();
     }
 
     return super.onOptionsItemSelected(item);
@@ -79,29 +115,31 @@ public class TransactionDetailActivity extends AppCompatActivity {
   /** Update the transaction details displayed in the view. */
   @RequiresApi(api = VERSION_CODES.N)
   private void updateTransactionDetails() {
-    setTitle(transaction.getContents());
+    if (transaction != null) {
+      setTitle(transaction.getContents());
 
-    kindTextView.setText(getString(transaction.getKindStringResource()));
+      kindTextView.setText(getString(transaction.getKindStringResource()));
 
-    final SharedPreferences settings = getSharedPreferences("user", Context.MODE_PRIVATE);
-    amountTextView.setText(
-        transaction.getAmountString(
-            settings.getBoolean(getString(R.string.setting_discreet_mode), false)));
+      final SharedPreferences settings = getSharedPreferences("user", Context.MODE_PRIVATE);
+      amountTextView.setText(
+          transaction.getAmountString(
+              settings.getBoolean(getString(R.string.setting_discreet_mode), false)));
 
-    amountTextView.setTextColor(transaction.getAmountColor());
+      amountTextView.setTextColor(transaction.getAmountColor());
 
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-    dateTextView.setText(dateFormat.format(new Date(transaction.getDate() * 1000L)));
+      final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+      dateTextView.setText(dateFormat.format(new Date(transaction.getDate() * 1000L)));
 
-    accountTextView.setText(transaction.getAccount().getValue());
-    categoryTextView.setText(transaction.getCategory().getValue());
-    contentsTextView.setText(transaction.getContents());
+      accountTextView.setText(transaction.getAccount().getValue());
+      categoryTextView.setText(transaction.getCategory().getValue());
+      contentsTextView.setText(transaction.getContents());
 
-    if (!transaction.getNotes().isEmpty()) {
-      notesTextView.setText(transaction.getNotes());
-    } else {
-      notesTextView.setText(R.string.transaction_no_notes);
-      notesTextView.setTextColor(0x80808080);
+      if (!transaction.getNotes().isEmpty()) {
+        notesTextView.setText(transaction.getNotes());
+      } else {
+        notesTextView.setText(R.string.transaction_no_notes);
+        notesTextView.setTextColor(0x80808080);
+      }
     }
   }
 }
