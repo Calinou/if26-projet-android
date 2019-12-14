@@ -29,7 +29,7 @@ public class SettingsDiscreetModeActivity extends AppCompatActivity {
     final SharedPreferences settings = getSharedPreferences("user", MODE_PRIVATE);
     preview = findViewById(R.id.settings_discreet_mode_preview);
     discreetModeSwitch = findViewById(R.id.settings_discreet_mode_switch);
-    discreetModeSwitch.setChecked(settings.getBoolean("discreet_mode", false));
+    discreetModeSwitch.setChecked(settings.getBoolean(getString(R.string.setting_discreet_mode), false));
 
     // Update the preview when loading this activity
     updatePreview();
@@ -40,7 +40,7 @@ public class SettingsDiscreetModeActivity extends AppCompatActivity {
           public void onClick(View view) {
             System.out.println(discreetModeSwitch.isChecked());
             final SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("discreet_mode", discreetModeSwitch.isChecked());
+            editor.putBoolean(getString(R.string.setting_discreet_mode), discreetModeSwitch.isChecked());
             editor.apply();
 
             updatePreview();

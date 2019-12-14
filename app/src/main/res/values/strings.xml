@@ -26,4 +26,5 @@
   <string name="settings_discreet_mode_description_1">Lorsque le mode discret est activé, les montants des transactions seront cachés.</string>
   <string name="preview">Aperçu</string>
   <string name="settings_discreet_mode_description_2">Cela vous permet d\'utiliser l\'application en toute sérénité dans des lieux publics, par exemple.</string>
+  <string name="setting_discreet_mode" translatable="false">discreet_mode</string>
 </resources>

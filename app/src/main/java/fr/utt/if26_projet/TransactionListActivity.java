@@ -49,7 +49,7 @@ public class TransactionListActivity extends AppCompatActivity {
 
     final SharedPreferences settings = getSharedPreferences("user", Context.MODE_PRIVATE);
     adapter = new TransactionListAdapter(this);
-    adapter.setDiscreetMode(settings.getBoolean("discreet_mode", false));
+    adapter.setDiscreetMode(settings.getBoolean(getString(R.string.setting_discreet_mode), false));
 
     final RecyclerView recyclerView = findViewById(R.id.transaction_list);
     recyclerView.setAdapter(adapter);
