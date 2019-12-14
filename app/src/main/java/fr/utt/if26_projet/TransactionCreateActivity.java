@@ -1,7 +1,6 @@
 package fr.utt.if26_projet;
 
 import android.icu.text.SimpleDateFormat;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import fr.utt.if26_projet.Transaction.Account;
@@ -46,7 +44,6 @@ public class TransactionCreateActivity extends AppCompatActivity {
     final Button submitButton = findViewById(R.id.transaction_create_submit);
     submitButton.setOnClickListener(
         new View.OnClickListener() {
-          @RequiresApi(api = VERSION_CODES.N)
           @Override
           public void onClick(View view) {
             // Determine the selected kind radio button

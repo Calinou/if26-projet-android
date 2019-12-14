@@ -6,13 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -61,7 +59,6 @@ public class TransactionDetailActivity extends AppCompatActivity {
         .observe(
             this,
             new Observer<Transaction>() {
-              @RequiresApi(api = VERSION_CODES.N)
               @Override
               public void onChanged(@Nullable final Transaction transaction2) {
                 transaction = transaction2;
@@ -113,7 +110,6 @@ public class TransactionDetailActivity extends AppCompatActivity {
   }
 
   /** Update the transaction details displayed in the view. */
-  @RequiresApi(api = VERSION_CODES.N)
   private void updateTransactionDetails() {
     if (transaction != null) {
       setTitle(transaction.getContents());

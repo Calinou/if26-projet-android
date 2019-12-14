@@ -2,9 +2,7 @@ package fr.utt.if26_projet;
 
 import android.icu.text.DecimalFormat;
 import android.icu.text.DecimalFormatSymbols;
-import android.os.Build.VERSION_CODES;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.io.Serializable;
@@ -182,7 +180,6 @@ public class Transaction implements Serializable {
    * Returns the amount as a formatted currency string (with French localization). If discreet mode
    * is enabled, returns a string that doesn't disclose the amount.
    */
-  @RequiresApi(api = VERSION_CODES.N)
   String getAmountString(boolean discreetMode) {
     if (discreetMode) {
       // Add a "+" prefix for positive amounts to make income more explicit.

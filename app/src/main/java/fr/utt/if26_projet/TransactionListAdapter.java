@@ -3,14 +3,12 @@ package fr.utt.if26_projet;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
-import android.os.Build.VERSION_CODES;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +56,6 @@ public class TransactionListAdapter
     return new TransactionViewHolder(itemView);
   }
 
-  @RequiresApi(api = VERSION_CODES.N)
   @Override
   public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
     if (transactions != null) {
