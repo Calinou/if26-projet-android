@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">MonArgent</string>
   <string name="action_settings">Paramètres</string>
   <string name="title_transaction_list">Liste des transactions</string>
@@ -25,7 +25,7 @@
   <string name="app_version">1.0.0</string>
   <string name="settings_discreet_mode_description_1">Lorsque le mode discret est activé, les montants des transactions seront cachés.</string>
   <string name="preview">Aperçu</string>
-  <string name="settings_discreet_mode_description_2">Cela vous permet d\'utiliser l\'application en toute sérénité dans des lieux publics, par exemple.</string>
+  <string name="settings_discreet_mode_description_2" tools:ignore="Typos">Cela vous permet d\'utiliser l\'application en toute sérénité dans des lieux publics, par exemple.</string>
   <string name="setting_discreet_mode" translatable="false">discreet_mode</string>
   <string name="transaction_no_notes">Pas de notes</string>
   <string name="action_delete">Supprimer</string>
