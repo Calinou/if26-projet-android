@@ -21,6 +21,8 @@ public class TransactionCreateActivity extends AppCompatActivity {
   private RadioGroup kindRadioGroup;
   private TextView dateTextView;
   private TextView amountTextView;
+  private RadioGroup accountRadioGroup;
+  private RadioGroup categoryRadioGroup;
   private TextView contentsTextView;
   private TextView notesTextView;
 
@@ -38,6 +40,8 @@ public class TransactionCreateActivity extends AppCompatActivity {
     kindRadioGroup = findViewById(R.id.transaction_create_kind);
     dateTextView = findViewById(R.id.transaction_create_date);
     amountTextView = findViewById(R.id.transaction_create_amount);
+    accountRadioGroup = findViewById(R.id.transaction_create_account);
+    categoryRadioGroup = findViewById(R.id.transaction_create_category);
     contentsTextView = findViewById(R.id.transaction_create_contents);
     notesTextView = findViewById(R.id.transaction_create_notes);
 
@@ -46,10 +50,20 @@ public class TransactionCreateActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            // Determine the selected kind radio button
-            final View radioButton =
+            // Determine the selected radio buttons
+            final View kindRadioButton =
                 kindRadioGroup.findViewById(kindRadioGroup.getCheckedRadioButtonId());
-            final Kind kind = Kind.values()[kindRadioGroup.indexOfChild(radioButton)];
+            final Kind kind = Kind.values()[kindRadioGroup.indexOfChild(kindRadioButton)];
+
+            final View accountRadioButton =
+                accountRadioGroup.findViewById(accountRadioGroup.getCheckedRadioButtonId());
+            final Account account =
+                Account.values()[accountRadioGroup.indexOfChild(accountRadioButton)];
+
+            final View categoryRadioButton =
+                categoryRadioGroup.findViewById(categoryRadioGroup.getCheckedRadioButtonId());
+            final Category category =
+                Category.values()[categoryRadioGroup.indexOfChild(categoryRadioButton)];
 
             // Handle French decimal separators in the amount
             final double amount =
@@ -71,8 +85,8 @@ public class TransactionCreateActivity extends AppCompatActivity {
                       0,
                       (kind == Kind.EXPENSE ? -1 : 1) * (int) (amount * 100.0),
                       date,
-                      Account.CARD,
-                      Category.OTHER,
+                      account,
+                      category,
                       contentsTextView.getText().toString(),
                       notesTextView.getText().toString(),
                       kind == Kind.TRANSFER);
