@@ -18,7 +18,7 @@ public class Transaction implements Serializable {
   private int amount;
 
   /** The transaction date (stored as an UNIX timestamp). */
-  private int date;
+  private long date;
 
   /** The account the transaction was made with. */
   private Account account;
@@ -88,7 +88,7 @@ public class Transaction implements Serializable {
   public Transaction(
       int id,
       int amount,
-      int date,
+      long date,
       Account account,
       Category category,
       @NonNull String contents,
@@ -120,11 +120,11 @@ public class Transaction implements Serializable {
     this.amount = amount;
   }
 
-  int getDate() {
+  long getDate() {
     return date;
   }
 
-  public void setDate(int date) {
+  public void setDate(long date) {
     this.date = date;
   }
 

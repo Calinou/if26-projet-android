@@ -71,11 +71,9 @@ public class TransactionCreateActivity extends AppCompatActivity {
 
             // Convert the date to an UNIX timestamp for storage purposes
             final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-            final int date;
+            final long date;
             try {
-              date =
-                  Math.toIntExact(
-                      dateFormat.parse(dateTextView.getText().toString()).getTime() / 1000L);
+              date = dateFormat.parse(dateTextView.getText().toString()).getTime() / 1000L;
 
               // The transaction kind isn't stored directly.
               // Instead, the transaction amount is stored as a positive or negative integer
