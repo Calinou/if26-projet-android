@@ -38,7 +38,6 @@ public class SettingsDiscreetModeActivity extends AppCompatActivity {
         new OnClickListener() {
           @Override
           public void onClick(View view) {
-            System.out.println(discreetModeSwitch.isChecked());
             final SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean(
                 getString(R.string.setting_discreet_mode), discreetModeSwitch.isChecked());

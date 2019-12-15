@@ -51,7 +51,6 @@ public class TransactionListActivity extends AppCompatActivity {
     final RecyclerView recyclerView = findViewById(R.id.transaction_list);
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    System.out.println("Loading TransactionListActivity");
 
     final TransactionViewModel transactionViewModel =
         new ViewModelProvider(this).get(TransactionViewModel.class);
@@ -62,7 +61,6 @@ public class TransactionListActivity extends AppCompatActivity {
             new Observer<List<Transaction>>() {
               @Override
               public void onChanged(@Nullable final List<Transaction> transactions) {
-                System.out.println("Updating list of transactions.");
                 // Update the cached copy of the transactions in the adapter
                 adapter.setTransactions(transactions);
               }

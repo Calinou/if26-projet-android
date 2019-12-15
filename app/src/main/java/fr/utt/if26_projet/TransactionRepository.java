@@ -21,7 +21,6 @@ class TransactionRepository {
   }
 
   LiveData<Transaction> get(int id) {
-    System.out.println("Getting transaction " + id + ".");
     return transactionDao.get(id);
   }
 
