@@ -2,6 +2,8 @@ package fr.utt.if26_projet;
 
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +27,7 @@ public class TransactionCreateActivity extends AppCompatActivity {
   private RadioGroup categoryRadioGroup;
   private TextView contentsTextView;
   private TextView notesTextView;
+  private Button submitButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,29 @@ public class TransactionCreateActivity extends AppCompatActivity {
     categoryRadioGroup = findViewById(R.id.transaction_create_category);
     contentsTextView = findViewById(R.id.transaction_create_contents);
     notesTextView = findViewById(R.id.transaction_create_notes);
+    submitButton = findViewById(R.id.transaction_create_submit);
 
-    final Button submitButton = findViewById(R.id.transaction_create_submit);
+    final TextWatcher textWatcher =
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+          @Override
+          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            // Disable the Submit button if one of the required fields isn't filled
+            submitButton.setEnabled(
+                dateTextView.getText().length() >= 1
+                    && amountTextView.getText().length() >= 1
+                    && contentsTextView.getText().length() >= 1);
+          }
+
+          @Override
+          public void afterTextChanged(Editable editable) {}
+        };
+
+    dateTextView.addTextChangedListener(textWatcher);
+    amountTextView.addTextChangedListener(textWatcher);
+    contentsTextView.addTextChangedListener(textWatcher);
     submitButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -92,6 +116,9 @@ public class TransactionCreateActivity extends AppCompatActivity {
 
               final TextView resultTextView = findViewById(R.id.transaction_create_result);
               resultTextView.setText(R.string.transaction_added);
+
+              // Reset the form to make it easier to submit new transactions
+              resetForm();
             } catch (ParseException e) {
               e.printStackTrace();
             }
@@ -107,5 +134,16 @@ public class TransactionCreateActivity extends AppCompatActivity {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  /** Resets the form to its initial state. */
+  public void resetForm() {
+    kindRadioGroup.check(0);
+    dateTextView.setText("");
+    amountTextView.setText("");
+    accountRadioGroup.check(0);
+    categoryRadioGroup.check(0);
+    contentsTextView.setText("");
+    notesTextView.setText("");
   }
 }
