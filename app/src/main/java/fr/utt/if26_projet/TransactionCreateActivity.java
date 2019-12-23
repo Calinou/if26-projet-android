@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import fr.utt.if26_projet.Transaction.Account;
 import fr.utt.if26_projet.Transaction.Category;
 import fr.utt.if26_projet.Transaction.Kind;
 import java.text.ParseException;
+import java.util.Date;
 
 public class TransactionCreateActivity extends AppCompatActivity {
 
@@ -48,6 +50,8 @@ public class TransactionCreateActivity extends AppCompatActivity {
     contentsTextView = findViewById(R.id.transaction_create_contents);
     notesTextView = findViewById(R.id.transaction_create_notes);
     submitButton = findViewById(R.id.transaction_create_submit);
+
+    resetForm();
 
     final TextWatcher textWatcher =
         new TextWatcher() {
@@ -138,11 +142,19 @@ public class TransactionCreateActivity extends AppCompatActivity {
 
   /** Resets the form to its initial state. */
   public void resetForm() {
-    kindRadioGroup.check(0);
-    dateTextView.setText("");
+    final RadioButton kindDefaultRadioButton = findViewById(R.id.transaction_create_kind_income);
+    kindDefaultRadioButton.setChecked(true);
+
+    final RadioButton accountDefaultRadioButton = findViewById(R.id.transaction_create_account_cash);
+    accountDefaultRadioButton.setChecked(true);
+
+    final RadioButton categoryDefaultRadioButton = findViewById(R.id.transaction_create_category_food);
+    categoryDefaultRadioButton.setChecked(true);
+
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+    dateTextView.setText(dateFormat.format(new Date()));
+
     amountTextView.setText("");
-    accountRadioGroup.check(0);
-    categoryRadioGroup.check(0);
     contentsTextView.setText("");
     notesTextView.setText("");
   }

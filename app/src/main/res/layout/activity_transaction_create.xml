@@ -110,7 +110,7 @@
       android:paddingTop="8dp"
       android:paddingBottom="16dp">
       <RadioButton
-        android:id="@+id/transaction_create_category_income"
+        android:id="@+id/transaction_create_category_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
@@ -118,14 +118,14 @@
         android:text="@string/transaction_category_food"
         tools:ignore="RtlSymmetry" />
       <RadioButton
-        android:id="@+id/transaction_create_category_expense"
+        android:id="@+id/transaction_create_category_leisure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingEnd="40dp"
         android:text="@string/transaction_category_leisure"
         tools:ignore="RtlSymmetry" />
       <RadioButton
-        android:id="@+id/transaction_create_category_transfer"
+        android:id="@+id/transaction_create_category_other"
         android:layout_width="138dp"
         android:layout_height="wrap_content"
         android:paddingEnd="40dp"
