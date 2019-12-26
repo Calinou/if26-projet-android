@@ -17,3 +17,5 @@ android:
 before_script:
   # Check for code style violations
   - ./gradlew verGJF
+  # Run unit tests
+  - ./gradlew test
