@@ -145,10 +145,12 @@ public class TransactionCreateActivity extends AppCompatActivity {
     final RadioButton kindDefaultRadioButton = findViewById(R.id.transaction_create_kind_income);
     kindDefaultRadioButton.setChecked(true);
 
-    final RadioButton accountDefaultRadioButton = findViewById(R.id.transaction_create_account_cash);
+    final RadioButton accountDefaultRadioButton =
+        findViewById(R.id.transaction_create_account_cash);
     accountDefaultRadioButton.setChecked(true);
 
-    final RadioButton categoryDefaultRadioButton = findViewById(R.id.transaction_create_category_food);
+    final RadioButton categoryDefaultRadioButton =
+        findViewById(R.id.transaction_create_category_food);
     categoryDefaultRadioButton.setChecked(true);
 
     final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
