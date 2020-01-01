@@ -16,3 +16,10 @@ la commande suivante (à entrer à la racine du répertoire du projet) :
 ```text
 ./gradlew goJF
 ```
+
+## Licence
+
+Copyright © 2019-2020 Hugo Locurcio
+
+Sauf mention contraire, les fichiers présents dans ce dépôt sont disponibles
+sous licence MIT. Consultez [LICENSE.md](LICENSE.md) pour plus d'informations.
